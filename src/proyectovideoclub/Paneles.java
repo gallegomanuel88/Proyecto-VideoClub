@@ -9,7 +9,7 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author galle
+ * @author gallegomanuel88
  */
 public class Paneles implements ActionListener{
     

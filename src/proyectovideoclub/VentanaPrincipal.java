@@ -1,19 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package proyectovideoclub;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author galle
+ * @author gallegomanuel88
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form VentanaPrincipal
-     */
+    BD objBD = new BD ();
+    
     public VentanaPrincipal() {
         initComponents();
     }
@@ -81,7 +82,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jLabel3.setText("Categoria");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "null", "Terror", "Comedia", "Drama", "SciFi", "Accion", "Suspenso", "Porno" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Terror", "Comedia", "Drama", "SciFi", "Accion", "Suspenso", "Porno" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -98,7 +99,30 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
+
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
+
+        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField4ActionPerformed(evt);
+            }
+        });
+
         jButton1.setText("Buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Limpiar datos");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -252,8 +276,48 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        objBD.limpiarTabla(jTable1);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        objBD.limpiarTabla(jTable1);
+        
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        Connection conexion = null;
+        try {
+            conexion = DriverManager.getConnection("jdbc:mysql://localhost/BDvideoclub", objBD.getUsuarioActual(), objBD.getPassActual());
+            Statement s = conexion.createStatement();
+            System.out.println("select titulo, anho, duracion, (select nombre from directores where coddir), nombrecat from peliculas" + (objBD.condicionConsulta(jTextField1.getText(), jTextField2.getText(), (String)jComboBox1.getSelectedItem(), jTextField3.getText(), jTextField4.getText())));
+            ResultSet rs = s.executeQuery("select titulo, anho, duracion, (select nombre from directores where coddir), nombrecat from peliculas" + (objBD.condicionConsulta(jTextField1.getText(), jTextField2.getText(), (String)jComboBox1.getSelectedItem(), jTextField3.getText(), jTextField4.getText())));
+            //ResultSet rs = s.executeQuery("select titulo, anho, duracion, (select nombre from directores where coddir), nombrecat from peliculas where titulo='kill bill' and anho='2003' and nombrecat='Accion'");
+            while (rs.next()) {
+                Object [] filaTabla = new Object [5];
+                filaTabla [0] = rs.getString(1);
+                filaTabla [1] = rs.getString(2);
+                filaTabla [2] = rs.getString(3);
+                filaTabla [3] = rs.getString(4);
+                filaTabla [4] = rs.getString(5);
+                modelo.addRow(filaTabla);
+            }
+            System.out.println("Consulta en boton buscar realizada");
+            conexion.close();
+        } catch (SQLException ex) {
+            System.out.println("SQLException: " + ex.getMessage());
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField4ActionPerformed
 
     /**
      * @param args the command line arguments
