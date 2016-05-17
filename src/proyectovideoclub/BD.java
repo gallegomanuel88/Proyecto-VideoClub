@@ -50,10 +50,10 @@ public class BD {
     
     public String condicionConsulta (String titulo, String anho, String categoria, String director, String actor) {
         
-        String consulta = " where ";
+        String consulta = "";
         
         if (true!=(titulo.equals(""))) {
-            consulta+= "titulo='" + titulo + "'";
+            consulta+= " where titulo='" + titulo + "'";
             if (true!=(anho.equals(""))){
                consulta+= " and anho='" + anho + "'";
                if (true!=(categoria.equals(""))){
@@ -68,7 +68,7 @@ public class BD {
             }
         }
         else if (true!=(anho.equals(""))){
-            consulta+= "anho='" + anho + "'";
+            consulta+= " where anho='" + anho + "'";
             if (true!=(categoria.equals(""))){
                 consulta+= " and nombrecat='" + categoria + "'";
                 if (true!=(director.equals(""))){
@@ -80,7 +80,7 @@ public class BD {
             }
         }
         else if (true!=(categoria.equals(""))){
-            consulta+= "nombrecat='" + categoria + "'";
+            consulta+= " where nombrecat='" + categoria + "'";
             if (true!=(director.equals(""))){
                 consulta+= " and coddir in (select coddir from directores where nombre='" + director + "')";
                 if (true!=(actor.equals(""))){
@@ -89,15 +89,20 @@ public class BD {
             }
         }
         else if (true!=(director.equals(""))){
-            consulta+= "coddir in (select coddir from directores where nombre='" + director + "')";
+            consulta+= " where coddir in (select coddir from directores where nombre='" + director + "')";
             if (true!=(actor.equals(""))){
                 consulta+= " and codpel in (select codpel from actorespel where coda in(select coda from actores where nombre='" + actor + "'))";
             }
         }
         else if (true!=(actor.equals(""))){
-            consulta+= "codpel in (select codpel from actorespel where coda in(select coda from actores where nombre='" + actor + "'))";
+            consulta+= " where codpel in (select codpel from actorespel where coda in(select coda from actores where nombre='" + actor + "'))";
         }
         return consulta;
+    }
+    
+    public String condicionActores (){
+        String condicion = " where ";
+        return condicion;
     }
     
     public void consultaPrincipal (){
