@@ -176,6 +176,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 "Titulo", "Año", "Duración", "Categoria", "Director"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
@@ -250,9 +255,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         try {
             conexion = DriverManager.getConnection("jdbc:mysql://localhost/BDvideoclub", objBD.getUsuarioActual(), objBD.getPassActual());
             Statement s = conexion.createStatement();
-            System.out.println("select titulo, anho, duracion, (select nombre from directores where coddir), nombrecat from peliculas" + (objBD.condicionConsulta(jTextField1.getText(), jTextField2.getText(), (String)jComboBox1.getSelectedItem(), jTextField3.getText(), jTextField4.getText())));
+            System.out.println("- select titulo, anho, duracion, (select nombre from directores where coddir), nombrecat from peliculas" + (objBD.condicionConsulta(jTextField1.getText(), jTextField2.getText(), (String)jComboBox1.getSelectedItem(), jTextField3.getText(), jTextField4.getText())));
             ResultSet rs = s.executeQuery("select titulo, anho, duracion, (select nombre from directores where coddir), nombrecat from peliculas" + (objBD.condicionConsulta(jTextField1.getText(), jTextField2.getText(), (String)jComboBox1.getSelectedItem(), jTextField3.getText(), jTextField4.getText())));
-            //ResultSet rs = s.executeQuery("select titulo, anho, duracion, (select nombre from directores where coddir), nombrecat from peliculas where titulo='kill bill' and anho='2003' and nombrecat='Accion'");
             while (rs.next()) {
                 Object [] filaTabla = new Object [5];
                 filaTabla [0] = rs.getString(1);
@@ -262,13 +266,40 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 filaTabla [4] = rs.getString(5);
                 modelo.addRow(filaTabla);
             }
-            System.out.println("Consulta en boton buscar realizada");
+            System.out.println("+ Consulta con boton buscar realizada");
             conexion.close();
         } catch (SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        objBD.limpiarTabla(jTable3);
+        int row = jTable1.getSelectedRow();
+        String nombrePelicula =jTable1.getValueAt(row, 0).toString();
+        System.out.println(nombrePelicula);
+        DefaultTableModel modelo = (DefaultTableModel) jTable3.getModel();
+        Connection conexion = null;
+        try {
+            conexion = DriverManager.getConnection("jdbc:mysql://localhost/BDvideoclub", objBD.getUsuarioActual(), objBD.getPassActual());
+            Statement s = conexion.createStatement();
+            System.out.println("- select nombre, sexo, pais, fechan from actores where coda in (select coda from actorespel where codpel in (select codpel from peliculas where titulo='"+nombrePelicula+"'))");
+            ResultSet rs = s.executeQuery("select nombre, sexo, pais, fechan from actores where coda in (select coda from actorespel where codpel in (select codpel from peliculas where titulo='"+nombrePelicula+"'))");
+            while (rs.next()) {
+                Object [] filaTabla = new Object [4];
+                filaTabla [0] = rs.getString(1);
+                filaTabla [1] = rs.getString(2);
+                filaTabla [2] = rs.getString(3);
+                filaTabla [3] = rs.getString(4);
+                modelo.addRow(filaTabla);
+            }
+            System.out.println("+ Consulta de actores con click en tabla de peliculas");
+            conexion.close();
+        } catch (SQLException ex) {
+            System.out.println("SQLException: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments

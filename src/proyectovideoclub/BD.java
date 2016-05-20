@@ -53,7 +53,7 @@ public class BD {
         String consulta = "";
         
         if (true!=(titulo.equals(""))) {
-            consulta+= " where titulo='" + titulo + "'";
+            consulta+= " where titulo like '%" + titulo + "%'";
             if (true!=(anho.equals(""))){
                consulta+= " and anho='" + anho + "'";
                if (true!=(categoria.equals(""))){
@@ -98,15 +98,6 @@ public class BD {
             consulta+= " where codpel in (select codpel from actorespel where coda in(select coda from actores where nombre='" + actor + "'))";
         }
         return consulta;
-    }
-    
-    public String condicionActores (){
-        String condicion = " where ";
-        return condicion;
-    }
-    
-    public void consultaPrincipal (){
-        
     }
     
     public void limpiarTabla (JTable tabla) {

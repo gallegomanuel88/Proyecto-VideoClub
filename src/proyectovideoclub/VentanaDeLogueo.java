@@ -54,7 +54,7 @@ public class VentanaDeLogueo extends javax.swing.JFrame {
             }
         });
 
-        jTextField1.setText("root");
+        jTextField1.setText("manu");
 
         jPasswordField1.setText("23704");
 
