@@ -59,9 +59,9 @@ public class BD {
                if (true!=(categoria.equals(""))){
                    consulta+= " and nombrecat='" + categoria + "'";
                    if (true!=(director.equals(""))){
-                       consulta+= " and coddir in (select coddir from directores where nombre='" + director + "')";
+                       consulta+= " and coddir in (select coddir from directores where nombre like '%" + director + "%')";
                        if (true!=(actor.equals(""))){
-                           consulta+= " and codpel in (select codpel from actorespel where coda in(select coda from actores where nombre='" + actor + "'))";
+                           consulta+= " and codpel in (select codpel from actorespel where coda in(select coda from actores where nombre like '%" + actor + "%'))";
                        }
                    }
                }
@@ -72,9 +72,9 @@ public class BD {
             if (true!=(categoria.equals(""))){
                 consulta+= " and nombrecat='" + categoria + "'";
                 if (true!=(director.equals(""))){
-                    consulta+= " and coddir in (select coddir from directores where nombre='" + director + "')";
+                    consulta+= " and coddir in (select coddir from directores where nombre like '%" + director + "%')";
                     if (true!=(actor.equals(""))){
-                        consulta+= " and codpel in (select codpel from actorespel where coda in(select coda from actores where nombre='" + actor + "'))";
+                        consulta+= " and codpel in (select codpel from actorespel where coda in(select coda from actores where nombre like '%" + actor + "%'))";
                     }
                 }
             }
@@ -82,20 +82,20 @@ public class BD {
         else if (true!=(categoria.equals(""))){
             consulta+= " where nombrecat='" + categoria + "'";
             if (true!=(director.equals(""))){
-                consulta+= " and coddir in (select coddir from directores where nombre='" + director + "')";
+                consulta+= " and coddir in (select coddir from directores where nombre like '%" + director + "%')";
                 if (true!=(actor.equals(""))){
-                    consulta+= " and codpel in (select codpel from actorespel where coda in(select coda from actores where nombre='" + actor + "'))";
+                    consulta+= " and codpel in (select codpel from actorespel where coda in(select coda from actores where nombre like '%" + actor + "%'))";
                 }
             }
         }
         else if (true!=(director.equals(""))){
-            consulta+= " where coddir in (select coddir from directores where nombre='" + director + "')";
+            consulta+= " where coddir in (select coddir from directores where nombre like '%" + director + "%')";
             if (true!=(actor.equals(""))){
-                consulta+= " and codpel in (select codpel from actorespel where coda in(select coda from actores where nombre='" + actor + "'))";
+                consulta+= " and codpel in (select codpel from actorespel where coda in(select coda from actores where nombre like '%" + actor + "%'))";
             }
         }
         else if (true!=(actor.equals(""))){
-            consulta+= " where codpel in (select codpel from actorespel where coda in(select coda from actores where nombre='" + actor + "'))";
+            consulta+= " where codpel in (select codpel from actorespel where coda in(select coda from actores where nombre like '%" + actor + "%'))";
         }
         return consulta;
     }
