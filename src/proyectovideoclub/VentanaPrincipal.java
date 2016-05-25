@@ -238,8 +238,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         try {
             conexion = DriverManager.getConnection("jdbc:mysql://localhost/BDvideoclub", objBD.getUsuarioActual(), objBD.getPassActual());
             Statement s = conexion.createStatement();
-            System.out.println("- select titulo, anho, duracion, (select nombre from directores where coddir), nombrecat from peliculas" + (objBD.condicionConsulta(jTextField1.getText(), jTextField2.getText(), (String)jComboBox1.getSelectedItem(), jTextField3.getText(), jTextField4.getText())));
-            ResultSet rs = s.executeQuery("select titulo, anho, duracion, (select nombre from directores where coddir), nombrecat from peliculas" + (objBD.condicionConsulta(jTextField1.getText(), jTextField2.getText(), (String)jComboBox1.getSelectedItem(), jTextField3.getText(), jTextField4.getText())));
+            System.out.println("- select titulo, anho, duracion, (select nombre from directores where nombre like '%"+jTextField3.getText()+"%'), nombrecat from peliculas" + (objBD.condicionConsulta(jTextField1.getText(), jTextField2.getText(), (String)jComboBox1.getSelectedItem(), jTextField3.getText(), jTextField4.getText())));
+            ResultSet rs = s.executeQuery("select titulo, anho, duracion, (select nombre from directores where directores.coddir=peliculas.coddir ), nombrecat from peliculas" + (objBD.condicionConsulta(jTextField1.getText(), jTextField2.getText(), (String)jComboBox1.getSelectedItem(), jTextField3.getText(), jTextField4.getText())));
             while (rs.next()) {
                 Object [] filaTabla = new Object [5];
                 filaTabla [0] = rs.getString(1);
