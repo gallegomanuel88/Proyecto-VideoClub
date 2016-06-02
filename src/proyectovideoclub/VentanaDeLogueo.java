@@ -11,6 +11,7 @@ public class VentanaDeLogueo extends javax.swing.JFrame {
      */
     public VentanaDeLogueo() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

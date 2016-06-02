@@ -1,6 +1,10 @@
 package proyectovideoclub;
 
+import java.awt.BorderLayout;
 import java.sql.*;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -110,5 +114,10 @@ public class BD {
         } catch (Exception e) {
             System.out.println("Error al limpiar la tabla.");
         }
+    }
+    
+    public void traerImagen (JLabel caratula, String titulo){
+        ImageIcon imagen = new ImageIcon(this.getClass().getResource("/portada/"+titulo+".jpg"));
+        caratula.setIcon(imagen);
     }
 }
