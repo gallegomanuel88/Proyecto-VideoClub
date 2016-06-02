@@ -234,8 +234,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -255,7 +255,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseClicked
-        
+        int row = jTable3.getSelectedRow();
+        String nombreActor =jTable3.getValueAt(row, 0).toString();
+        //System.out.println(nombreActor);
+        objBD.traerImagen(jLabel8, nombreActor, "/fotosActores/");
     }//GEN-LAST:event_jTable3MouseClicked
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -263,7 +266,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         
         int row = jTable1.getSelectedRow();
         String nombrePelicula =jTable1.getValueAt(row, 0).toString();
-        objBD.traerImagen(jLabel8, nombrePelicula);
+        objBD.traerImagen(jLabel8, nombrePelicula, "/portada/");
         DefaultTableModel modelo = (DefaultTableModel) jTable3.getModel();
         System.out.println(nombrePelicula);
         Connection conexion = null;
@@ -290,6 +293,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         objBD.limpiarTabla(jTable1);
+        objBD.limpiarTabla(jTable3);
+        jLabel8.setIcon(null);
 
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         Connection conexion = null;

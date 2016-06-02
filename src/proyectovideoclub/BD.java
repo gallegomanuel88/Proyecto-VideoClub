@@ -116,8 +116,8 @@ public class BD {
         }
     }
     
-    public void traerImagen (JLabel caratula, String titulo){
-        ImageIcon imagen = new ImageIcon(this.getClass().getResource("/portada/"+titulo+".jpg"));
+    public void traerImagen (JLabel caratula, String titulo, String ruta){
+        ImageIcon imagen = new ImageIcon(this.getClass().getResource(ruta+titulo+".jpg"));
         caratula.setIcon(imagen);
     }
 }
