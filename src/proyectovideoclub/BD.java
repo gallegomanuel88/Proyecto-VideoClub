@@ -1,10 +1,8 @@
 package proyectovideoclub;
 
-import java.awt.BorderLayout;
 import java.sql.*;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
