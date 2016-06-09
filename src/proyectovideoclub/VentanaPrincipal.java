@@ -1,5 +1,6 @@
 package proyectovideoclub;
 
+import acceso.Utilidades;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -13,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
     
-    
+    Utilidades libreriaUtilidades = new Utilidades();
     BD objBD = new BD ();
     
     public VentanaPrincipal() {
@@ -255,16 +256,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseClicked
         int row = jTable3.getSelectedRow();
         String nombreActor =jTable3.getValueAt(row, 0).toString();
-        //System.out.println(nombreActor);
-        objBD.traerImagen(jLabel8, nombreActor, "/fotosActores/");
+        //Con metodo en la clase BD
+        //objBD.traerImagen(jLabel8, nombreActor, "/fotosActores/");
+        //Con libreria
+        libreriaUtilidades.traerImagen(jLabel8, nombreActor, "/fotosActores/");
     }//GEN-LAST:event_jTable3MouseClicked
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        objBD.limpiarTabla(jTable3);
+        //Con metodo en la clase BD
+        //objBD.limpiarTabla(jTable3);
+        //Con libreria
+        libreriaUtilidades.limpiarTabla(jTable3);
         
         int row = jTable1.getSelectedRow();
         String nombrePelicula =jTable1.getValueAt(row, 0).toString();
-        objBD.traerImagen(jLabel8, nombrePelicula, "/portada/");
+        //Con metodo en la clase BD
+        //objBD.traerImagen(jLabel8, nombrePelicula, "/portada/");
+        //Con libreria
+        libreriaUtilidades.traerImagen(jLabel8, nombrePelicula, "/portada/");
         DefaultTableModel modelo = (DefaultTableModel) jTable3.getModel();
         System.out.println(nombrePelicula);
         Connection conexion = null;
@@ -290,8 +299,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        objBD.limpiarTabla(jTable1);
-        objBD.limpiarTabla(jTable3);
+        //Con metodo en la clase BD
+        //objBD.limpiarTabla(jTable1);
+        //objBD.limpiarTabla(jTable3);
+        //Con libreria
+        libreriaUtilidades.limpiarTabla(jTable1);
+        libreriaUtilidades.limpiarTabla(jTable3);
         jLabel8.setIcon(null);
 
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();

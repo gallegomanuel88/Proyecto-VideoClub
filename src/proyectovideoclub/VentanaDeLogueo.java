@@ -55,10 +55,6 @@ public class VentanaDeLogueo extends javax.swing.JFrame {
             }
         });
 
-        jTextField1.setText("manu");
-
-        jPasswordField1.setText("23704");
-
         jLabel4.setForeground(new java.awt.Color(249, 6, 6));
         jLabel4.setText("     ");
 
