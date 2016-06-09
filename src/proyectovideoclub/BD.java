@@ -101,7 +101,7 @@ public class BD {
         }
         return consulta;
     }
-    
+    /**Metodo sustituido por la libreria
     public void limpiarTabla (JTable tabla) {
         try {
             DefaultTableModel modelo=(DefaultTableModel) tabla.getModel();
@@ -112,10 +112,10 @@ public class BD {
         } catch (Exception e) {
             System.out.println("Error al limpiar la tabla.");
         }
-    }
-    
+    }*/
+    /**Metodo sustituido por la libreria
     public void traerImagen (JLabel caratula, String titulo, String ruta){
         ImageIcon imagen = new ImageIcon(this.getClass().getResource(ruta+titulo+".jpg"));
         caratula.setIcon(imagen);
-    }
+    }*/
 }
